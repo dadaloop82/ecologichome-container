@@ -66,7 +66,7 @@ To install this Docker container on systems with amd64 architecture, follow thes
 ```bash
 
 # Clone the repo ...
-git clone git@github.com:dadaloop82/ecologichome-container.git
+git clone https://github.com/dadaloop82/ecologichome-container.git
 
 # ... or update if you have already cloned
 cd <path_to source>
