@@ -1,117 +1,136 @@
-# Welcome to the thesillyhome-container
+# Eco-Logic Home: Intelligent Living for a Sustainable Tomorrow
 
-# Introduction
+Welcome to Eco-Logic Home, where the fusion of eco-consciousness and logical automation transforms your living space into a haven of intelligence and sustainability.
 
-Smart homes aren’t very smart. Managing all your device automation rules is tedious. 
+**Eco-Logic**, as the name suggests, goes beyond mere smart home functionalities. It embodies a commitment to making your home both ecologically sound and logically responsive. This means not only creating machine learning models tailored to your habits but also assessing their ecological impact and promoting energy efficiency through the innovative use of GPT (Generative Pre-trained Transformer) technology.
 
-That’s why The Silly Home aims to transform the static rules paradigm into a dynamic AI based approach to the connected home.
+## Project in Development
 
-Find out more at our homepage https://thesillyhome.com/.
+Please note that Eco-Logic Home is an ongoing project. Our team is tirelessly working to refine and expand its capabilities. As we continue to innovate, your feedback and contributions are invaluable in shaping the future of smart, eco-friendly living. Stay tuned for updates and join us on this journey toward a more sustainable and intelligent home.
 
-This repo is a docker-container built to be used with Homeassistant.
-</br></br>
+## Acknowledgment
+
+**This project is a fork of the [ecologichome](https://github.com/dadaloop82/ecologichome-container) project by dadaloop82.**
+
+A big shoutout and heartfelt thanks to [dadaloop82](https://github.com/dadaloop82/) for the fantastic groundwork and the opportunity to enhance it. Additionally, we extend our gratitude to [dadaloop82](https://github.com/dadaloop82) for their contributions to the project. It's a collaborative effort, and credit goes to both dadaloop82 and dadaloop82 for making this possible!
+
+The project remains under the same open-source license (GPL) as the original.
+
+</br>
 
 # How it works
 
-Our intuition is that with enough sensor data, we can build an accurate model to predict your future device states based on your historical device states. 
+Our approach at Eco-Logic Home involves leveraging machine learning to create a personalized and adaptive smart living environment. The process unfolds in three key phases:
 
 ### Design
 
 Terminology:
-- actuators = Any entity's state you want to create a model and predict for. ie. living_room_light_1.state, living_room_light_2.state
-- sensors = Any entities that act as the triggers and conditions. ie. sensor.occupancy
-- devices = actuators + sensors
+- actuators = Any entity's state you want to create a model and predict for (e.g., living_room_light_1.state, living_room_light_2.state).
+- sensors = Entities that act as triggers and conditions (e.g., sensor.occupancy).
+- devices = Actuators + sensors
 
-#### 1. Data extraction 
-Homeassistant stores state data. This step extracts and parses this data into a machine learning (‘ML’) trainable format (hot encoded categorical values, constant status publish vs state changes etc.). 
+#### 1. Data Extraction
+In this initial phase, we tap into the wealth of data stored by Homeassistant. This includes the states of various actuators and the triggering conditions from sensors. The extracted data is then formatted into a machine learning-friendly CSV structure. Each row represents a published state of an actuator, along with the states of other relevant sensors.
 
-The end output frame is munged to show for each state published for an actuator, the state of other sensors and actuators.
-
-The data is structured in a csv and formatted the following way:
+Example CSV format:
+```csv
 actuators, states, created, duplicate, sensor1, sensor2, sensor3, sensor4...
+living_room_light, on, 2023-01-01, false, motion_detected, door_open, temperature_high...
+```
 
-#### 2. Learning model 
-As a phase one, our focus will be to predict lights
-At the moment a simple sklearn Decision Tree model is used.
+#### 2. Learning model
+Focusing initially on predicting lights, we employ a simple sklearn Decision Tree model. To enhance accuracy, recent data is weighted more heavily, and the last state is considered as a feature input.
 
-There are additional features aimed to improve the accuracy:
-Higher weighting for more recent data
-Using the Last state as a feature input.
+#### 3. Appdaemon Execution
+Real-time deployment of prediction models is made seamless through the use of Appdaemon. 
 
-#### 3. Appdaemon Execution 
-For ease of deployment, the decision was made to leverage Appdaemon in order to use the prediction models created in real time!
+For every sensor change, a request is made to predict new states for actuators and execute them.
 
-For each sensor change there is a request to predict the new states for actuators and perform them.
+## Architecture diagram
+![Architecture Diagram](https://github.com/dadaloop82/ecologichome-container/raw/master/doc/arch_diagram.png)
 
-### Architecture diagram 
-![alt text](https://github.com/lcmchris/thesillyhome-container/blob/master/doc/arch_diagram.png)
 
 </br></br>
+
 # Installation guide
 
-### Dependencies
+## Dependencies
 
 Homeassistant OS or Container.
 
-Recorder component enabled using mariadb or postgreSQL with auto_purge disabled.
-
-## Setup 
-There is support for both types of Homeassistant installations:
-
-### Setup for Homeassistant OS
-Install the Homeassistant add-on using [thesillyhome-addon-repo](https://github.com/lcmchris/thesillyhome-addon-repo).
+Recorder component enabled using MariaDB or PostgreSQL **with auto_purge disabled.**
 
 
-### Setup for Homeassistant Container
-To install this container, run the following:
+### Setup for Docker
+To install this Docker container on systems with amd64 architecture, follow these steps:
+```bash
+
+# Clone the repo ...
+git clone git@github.com:dadaloop82/ecologichome-container.git
+
+# ... or update if you have already cloned
+cd <path_to source>
+git pull
+
+# Create the volume
+docker volume create ecologichome_config
+
+# Find the path to volume docker volume inspect ecologichome_config  ...
+docker volume inspect ecologichome_config
+# ... and get the Mountpoint path
+[ example: /var/lib/docker/volumes/ecologichome_config/_data ]
+
+cd ecologichome-container/
+
+# Copy the options.json
+cp ecologichome_src/data/config/options.json <path_to_volume>
+[ example: cp ecologichome_src\data\config\options.json /var/lib/docker/volumes/ecologichome_config/_data ]
+
+# Edit the options.json
+nano <path_to_volume>/options.json
+[ example: nano /var/lib/docker/volumes/ecologichome_config/_data/options.json ]
+
+# Start the docker-compose
+docker-compose up -d (or docker compose up -d)
+
+If you see the message "✔ Container ecologichome Started," it means that the program has been successfully installed.
+# ... wait for build ~3-5 min
+
+# Logging
+docker logs -f --tail 50 ecologichome
 ```
-git clone git@github.com:lcmchris/thesillyhome-container.git
+<br><br>
+# Configuration File
 
-docker volume create thesillyhome_config
-# Find the path to volume docker volume inspect thesillyhome_config or \\wsl$\docker-desktop-data\data\docker\volumes
-cp thesillyhome_src\data\config\options.json <path_to_volume>
-# Amend the copied options.json
-
-docker-compose up -d
+```yaml
+actuators_id: # List of all entity_ids of actuators (array)
+sensors_id: # List of all entity_ids of sensors.
+db_options: # All settings for connecting to the Homeassistant database
+  db_password: # Database password 
+  db_username: # Database username e.g homeassistant
+  db_host: # Database host 192.168.1.100
+  db_port: # Database port '3306'
+  db_database: # Database name homeassistant, or the SQLite db filename (`home-assistant_v2.db` is the default)
+  db_type: # Database type. Only {sqlite, mariadb, postgres} is supported
+ha_options: # All settings for connecting to Homeassistant. These settings are only required for Homeassistant Container setup.
+  ha_url: # IP of your Homeassistant
+  ha_token: # Long-lived access token. This is required for the Appdaemon.
 ```
 
-### Configuration file
+<br><br>
 
-```
-actuactors_id: List of all entity_ids of actuators.
-sensors_id: List of all entity_ids of sensors.
-db_options: All settings for connecting to the homeassistant database
-  db_password: Database password 
-  db_username: Database username e.g homeassistant
-  db_host:  Database host 192.168.1.100
-  db_port:  Database port '3306'
-  db_database:  Database name homeassistant, or the sqlite db filename (`home-assistant_v2.db` is the default)
-  db_type:  Database type. Only {sqlite,mariadb,postgres} is supported
- ha_options: All settings for connecting to homeassistant. These settings are only required for Homeassistant Container setup.
-  ha_url: IP of your homeassistant
-  ha_token: Long lived access token. This is required for the Appdaemon.
- ```
- 
-See the [example config file](https://github.com/lcmchris/thesillyhome-container/blob/master/thesillyhome_src/data/config/options.json) for more details
-  
+# Additional Information
+
+ToDo
+
 </br></br>
-# Contribution guide
 
-### Support
-Reach out in our [Discord](https://discord.gg/haVav7uXm8) for support on issues.
-Raise code issues in GitHub and tag as bugs.
+# Contribution Guide
 
-### Feature Requests
-Discuss features in our [Discord](https://discord.gg/haVav7uXm8).
-Raise issues on GitHub and tag as enhancements.
+ToDo
 
 </br></br>
+
 # Feature Roadmap
 
-Please see [The Silly Home Features Roadmap Git Projects](https://github.com/users/lcmchris/projects/1) 
-
-### Routine extraction?
-There is an open thought that having these untrained, underperforming models (at this stage) to directly manage your home is a bad idea. A perhaps better one is to make it predict your required routines.
-
-### Model Performance dashboard?
-Having a black box is probably not ideal for The Silly Home, adding some visibility on the models giving performance will help let you pick and choose the models to activate.
+ToDo

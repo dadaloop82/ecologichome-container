@@ -1,8 +1,8 @@
 {
-    "name": "thesillyhome",
+    "name": "ecologichome",
     "dockerComposeFile": "docker-compose-dev.yml",
-    "service": "thesillyhome",
-    "workspaceFolder": "/thesillyhome_src",
+    "service": "ecologichome",
+    "workspaceFolder": "/ecologichome_src",
     "shutdownAction": "stopCompose",
     "customizations": {
         "vscode": {

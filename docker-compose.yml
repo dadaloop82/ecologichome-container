@@ -1,14 +1,14 @@
 volumes:
-  thesillyhome_config:
-    name: thesillyhome_config
+  ecologichome_config:
+    name: ecologichome_config
     external: true
 
 services:
-  thesillyhome:
-    container_name: thesillyhome
-    image: lightningpicture/aarch64-thesillyhome-dev:dev-30
+  ecologichome:
+    container_name: ecologichome
+    image: dadaloop82/aarch64-ecologichome-dev:dev-30
     restart: unless-stopped
     volumes:
-      - thesillyhome_config:/thesillyhome_src/data/config/
+      - ecologichome_config:/ecologichome_src/data/config/
     ports:
       - 2300:2300

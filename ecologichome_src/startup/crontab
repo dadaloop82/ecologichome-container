@@ -1,0 +1,2 @@
+<autotrain_cadence> root python3 -m ecologichome.model_creator.learning_model >> /ecologichome_src/log/ecologichome.log
+# Don't remove the empty line at the end of this file. It is required to run the cron job

@@ -1,20 +1,20 @@
 volumes:
-  thesillyhome_config:
-    name: thesillyhome_config
+  ecologichome_config:
+    name: ecologichome_config
   ignore:
     name: ignore
 
 services:
-  thesillyhome:
-    container_name: thesillyhome
-    image: lightningpicture/aarch64-thesillyhome-dev:dev-30
+  ecologichome:
+    container_name: ecologichome
+    image: dadaloop82/aarch64-ecologichome-dev:dev-30
     restart: unless-stopped
     volumes:
-      - .\thesillyhome_src\appdaemon\apps\:/thesillyhome_src/appdaemon/apps/
-      - .\thesillyhome_src\startup\:/thesillyhome_src/startup/
-      - .\thesillyhome_src\thesillyhome\:/thesillyhome_src/thesillyhome/
-      - .\thesillyhome_src\frontend\src\:/thesillyhome_src/frontend/src/
-      - thesillyhome_config:/thesillyhome_src/data/config/
+      - .\ecologichome_src\appdaemon\apps\:/ecologichome_src/appdaemon/apps/
+      - .\ecologichome_src\startup\:/ecologichome_src/startup/
+      - .\ecologichome_src\ecologichome\:/ecologichome_src/ecologichome/
+      - .\ecologichome_src\frontend\src\:/ecologichome_src/frontend/src/
+      - ecologichome_config:/ecologichome_src/data/config/
     ports:
       - "2300:2300"
       - "3000:3000"

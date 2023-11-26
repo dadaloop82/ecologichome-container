@@ -136,5 +136,5 @@ dmypy.json
 *.log
 *.db
 *.out
-thesillyhome_src/frontend/node_modules
-thesillyhome_src/frontend/static/data/*
+ecologichome_src/frontend/node_modules
+ecologichome_src/frontend/static/data/*
