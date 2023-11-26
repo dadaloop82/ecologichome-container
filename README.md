@@ -84,7 +84,7 @@ cd ecologichome-container/
 
 # Copy the options.json
 cp ecologichome_src/data/config/options.json <path_to_volume>
-[ example: cp ecologichome_src\data\config\options.json /var/lib/docker/volumes/ecologichome_config/_data ]
+[ example: cp ecologichome_src/data/config/options.json /var/lib/docker/volumes/ecologichome_config/_data ]
 
 # Edit the options.json
 nano <path_to_volume>/options.json
