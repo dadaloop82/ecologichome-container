@@ -1,14 +1,18 @@
-volumes:
-  ecologichome_config:
-    name: ecologichome_config
-    external: true
+version: '3'
 
 services:
   ecologichome:
     container_name: ecologichome
-    image: lightningpicture/aarch64-thesillyhome-dev:dev-30
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     restart: unless-stopped
     volumes:
       - ecologichome_config:/ecologichome_src/data/config/
     ports:
       - 2300:2300
+
+volumes:
+  ecologichome_config:
+    name: ecologichome_config
+    external: true
