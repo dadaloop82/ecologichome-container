@@ -161,9 +161,9 @@ nano <path_to_volume>/options.json
 
 # Start the docker-compose
 docker-compose up -d (or docker compose up -d)
-
-If you see the message "✔ Container ecologichome Started," it means that the program has been successfully installed.
 # ... wait for build ~3-5 min
+If you see the message "✔ Container ecologichome Started," it means that the program has been successfully installed.
+
 
 # Logging
 docker logs -f --tail 50 ecologichome
