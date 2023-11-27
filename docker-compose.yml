@@ -6,7 +6,7 @@ volumes:
 services:
   ecologichome:
     container_name: ecologichome
-    image: dadaloop82/aarch64-ecologichome-dev:dev-30
+    image: lightningpicture/aarch64-thesillyhome-dev:dev-30
     restart: unless-stopped
     volumes:
       - ecologichome_config:/ecologichome_src/data/config/
