@@ -1,13 +1,11 @@
+# Prima fase per la compilazione
 FROM python:3.9-slim-bullseye AS compile-image
 
-RUN apt-get update && apt-get install -y curl bash && \
-    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get install -y \
-    build-essential \
-    libffi-dev \
-    libpq-dev \
-    nodejs \
-    gfortran
+RUN apt-get update && apt-get install -y curl bash build-essential libffi-dev libpq-dev gfortran
+
+# Installa Node.js
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get install -y nodejs
 
 ARG PIP_EXTRA_INDEX_URL=https://www.piwheels.org/simple
 
@@ -25,6 +23,12 @@ WORKDIR /ecologichome_src/frontend
 RUN npm install && npm run build
 
 FROM python:3.9-slim-bullseye AS build-image
+
+RUN apt-get update && apt-get install -y curl bash libpq-dev nodejs cron
+
+# Copia le dipendenze Python e Node.js dalla fase di compilazione
+COPY --from=compile-image /opt/venv /opt/venv
+COPY --from=compile-image /ecologichome_src /ecologichome_src
 
 RUN apt-get update && apt-get install -y curl bash && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
