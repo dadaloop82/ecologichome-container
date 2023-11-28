@@ -87,7 +87,7 @@ Example CSV format:
 ```csv
 actuators, states, created, duplicate, sensor1, sensor2, sensor3, sensor4...
 living_room_light, on, 2023-01-01, false, motion_detected, door_open, temperature_high...
-
+```
 
 #### 2. Learning model
 Focusing initially on predicting lights, we employ a simple sklearn Decision Tree model. To enhance accuracy, recent data is weighted more heavily, and the last state is considered as a feature input.
