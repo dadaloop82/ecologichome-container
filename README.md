@@ -28,28 +28,6 @@ Before diving into the world of Eco-Logic, ensure your system meets the followin
 - **Patience is Key:**
   - Eco-Logic relies on historical data from Home Assistant to learn and adapt to your lifestyle.
 
-## Examples of Eco-Logic in Action
-
-Here are a few examples to illustrate how Eco-Logic enhances your living experience:
-
-1. **Adaptive Lighting:**
-   - Eco-Logic learns your lighting preferences based on historical data.
-   - Adjusts the lighting conditions in each room according to your habits, ensuring optimal energy consumption.
-
-2. **Temperature Optimization:**
-   - Analyzes your historical temperature settings and weather patterns.
-   - Automatically adjusts the thermostat to maintain a comfortable environment while minimizing energy usage.
-
-3. **Energy-Efficient Appliance Usage:**
-   - Learns your appliance usage patterns over time.
-   - Suggests optimal times to use high-energy-consuming appliances to reduce overall energy consumption.
-
-4. **Smart Energy Management:**
-   - Integrates with renewable energy sources and suggests the best times to harness solar or wind power.
-   - Maximizes the use of eco-friendly energy options, reducing your carbon footprint.
-
-By combining machine learning with ecological awareness, Eco-Logic Home transforms your residence into a sustainable, intelligent living space.
-
 
 ## Examples of Eco-Logic in Action
 
@@ -79,9 +57,11 @@ Please note that Eco-Logic Home is an ongoing project. Our team is tirelessly wo
 
 ## Acknowledgment
 
-**This project is a fork of the [ecologichome](https://github.com/dadaloop82/ecologichome-container) project by dadaloop82.**
+## Acknowledgment
 
-A big shoutout and heartfelt thanks to [dadaloop82](https://github.com/dadaloop82/) for the fantastic groundwork and the opportunity to enhance it. Additionally, we extend our gratitude to [dadaloop82](https://github.com/dadaloop82) for their contributions to the project. It's a collaborative effort, and credit goes to both dadaloop82 and dadaloop82 for making this possible!
+**This project is a fork of the [theSillyHome](https://github.com/lcmchris/thesillyhome-container) project by lcmchris.**
+
+A big shoutout and heartfelt thanks to [lcmchris](https://github.com/lcmchris/) for the fantastic groundwork and the opportunity to enhance it. Additionally, we extend our gratitude to [Lightningpicture](https://github.com/Lightningpicture) for their contributions to the project. It's a collaborative effort, and credit goes to both lcmchris and Lightningpicture for making this possible!
 
 The project remains under the same open-source license (GPL) as the original.
 
