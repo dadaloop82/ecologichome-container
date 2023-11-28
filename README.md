@@ -1,10 +1,10 @@
 # Eco-Logic Home: Intelligent Living for a Sustainable Tomorrow with [HomeAssistant](https://www.home-assistant.io) (HASS)
 
-🏡 **Welcome to Eco-Logic Home**, where smart living meets sustainability, powered by Home Assistant. Eco-Logic Home goes beyond the basics, using machine learning and GPT tech to tailor your home's automation to your habits while keeping it eco-friendly.
+🏡 **Welcome to Eco-Logic Home**, where smart living meets sustainability, powered by Home Assistant. 
 
-## Eco-Logic Home
+**Eco-Logic Home** goes beyond the basics, using machine learning and GPT tech to tailor your home's automation to your habits while keeping it eco-friendly.
 
-Step into Eco-Logic Home, where eco-conscious vibes and clever automation, teaming up with Home Assistant, turn your place into a chill spot of smarts and sustainability.
+Step into **Eco-Logic Home**, where eco-conscious vibes and clever automation, teaming up with [HomeAssistant](https://www.home-assistant.io), turn your place into a chill spot of smarts and sustainability.
 
 **Eco-Logic Home**, no fancy stuff, just a name that says we're about more than basic smart homes. We're into making your crib Earth-friendly and smart as a whip. We're talking about whipping up machine learning tricks to match your style and giving a nod to nature by keeping things energy-efficient with our GPT tech.
 
@@ -55,13 +55,9 @@ Here are a few examples to illustrate how Eco-Logic Home enhances your living ex
 
 By combining machine learning with ecological awareness, Eco-Logic Home transforms your residence into a sustainable, intelligent living space.
 
-## Project in Development
-
-Please note that Eco-Logic Home is an ongoing project. Our team is tirelessly working to refine and expand its capabilities. As we continue to innovate, your feedback and contributions are invaluable in shaping the future of smart, eco-friendly living. Stay tuned for updates and join us on this journey toward a more sustainable and intelligent home.
-
 ## Acknowledgment
 
-🙌 **This project is a fork of the [theSillyHome](https://github.com/lcmchris/thesillyhome-container) project by lcmchris.**
+🙌 **This project is a fork of the [theSillyHome](https://github.com/lcmchris/thesillyhome-container) project by [lcmchris](https://github.com/lcmchris/).**
 
 A big shoutout and heartfelt thanks to [lcmchris](https://github.com/lcmchris/) for the fantastic groundwork and the opportunity to enhance it. Additionally, we extend our gratitude to [Lightningpicture](https://github.com/Lightningpicture) for their contributions to the project. It's a collaborative effort, and credit goes to both lcmchris and Lightningpicture for making this possible!
 
@@ -80,22 +76,20 @@ Terminology:
 - 🎛️ **Sensors:** Entities that act as triggers and conditions (e.g., sensor.occupancy).
 - 🏠 **Devices:** Actuators + sensors
 
-#### 1. Data Extraction
+### Data Extraction
 In this initial phase, we tap into the wealth of data stored by Homeassistant. This includes the states of various actuators and the triggering conditions from sensors. The extracted data is then formatted into a machine learning-friendly CSV structure. Each row represents a published state of an actuator, along with the states of other relevant sensors.
 
-Example CSV format:
+### Example CSV format:
 ```csv
 actuators, states, created, duplicate, sensor1, sensor2, sensor3, sensor4...
 living_room_light, on, 2023-01-01, false, motion_detected, door_open, temperature_high...
 ```
 
-#### 2. Learning model
+##  Learning model
 Focusing initially on predicting lights, we employ a simple sklearn Decision Tree model. To enhance accuracy, recent data is weighted more heavily, and the last state is considered as a feature input.
 
-#### 3. Appdaemon Execution
-Real-time deployment of prediction models is made seamless through the use of Appdaemon. 
-
-For every sensor change, a request is made to predict new states for actuators and execute them.
+## Appdaemon Execution
+Real-time deployment of prediction models is made seamless through the use of Appdaemon; for every sensor change, a request is made to predict new states for actuators and execute them.
 
 ## Architecture diagram
 ![Architecture Diagram](https://github.com/dadaloop82/ecologichome-container/raw/master/doc/arch_diagram.png)
