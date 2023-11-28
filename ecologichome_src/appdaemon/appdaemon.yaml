@@ -1,7 +1,7 @@
 appdaemon:
-  latitude: 52.379189
-  longitude: 4.899431
-  elevation: 2
+  latitude: 0.0
+  longitude: 0.0
+  elevation: 0
   time_zone: Europe/London
   plugins:
     HASS:

@@ -136,7 +136,7 @@ nano <path_to_volume>/options.json
 [ example: nano /var/lib/docker/volumes/ecologichome_config/_data/options.json ]
 
 # Start the docker-compose
-docker-compose up -d (or docker compose up -d)
+docker-compose up -d (or docker compose up --force-recreate)
 # ... wait for build ~3-5 min
 If you see the message "✔ Container ecologichome Started," it means that the program has been successfully installed.
 

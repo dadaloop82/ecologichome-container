@@ -7,11 +7,10 @@ from traceback import format_exception
 from ecologichome.model_creator.home import homedb
 
 
-def add_logger():
+def add_logger(logname):
     FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-    logname = "/ecologichome_src/log/ecologichome.log"
+    logger.setLevel(logging.DEBUG)    
 
     # setup logging to file
     filelog = TimedRotatingFileHandler(
