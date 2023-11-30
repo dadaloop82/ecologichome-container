@@ -7,16 +7,14 @@ RUN apt-get update && apt-get install -y curl bash && \
     libffi-dev \
     libpq-dev \
     nodejs \
-    gfortran
+    gfortran \
+    git  # Aggiunta l'installazione di Git
 
 ARG PIP_EXTRA_INDEX_URL=https://www.piwheels.org/simple
 
-COPY ecologichome_src /ecologichome_src
-
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
-RUN pip3 install --upgrade pip && \
+# Clona il repository GitHub e copia il suo contenuto in /ecologichome_src
+RUN git clone https://github.com/dadaloop82/ecologichome-container.git /ecologichome_src && \
+    pip3 install --upgrade pip && \
     pip3 install setuptools==62.4.0 && \
     pip3 install -e /ecologichome_src/ecologichome/ && \
     pip3 install appdaemon==4.2.1 
@@ -33,9 +31,7 @@ RUN apt-get update && apt-get install -y curl bash && \
 COPY --from=compile-image /opt/venv /opt/venv
 COPY --from=compile-image /ecologichome_src /ecologichome_src
 
-
 ENV PATH="/opt/venv/bin:$PATH"
 WORKDIR /
 
 ENTRYPOINT [ "bash", "/ecologichome_src/startup/run.sh" ]
-

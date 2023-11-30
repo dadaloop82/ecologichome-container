@@ -21,7 +21,7 @@ services:
       - ecologichome_config:/ecologichome_src/data/config/
     ports:
       - "2300:2300"
-      - "3000:3000"
+      - "3300:3300"
     user: code
     environment:
       DOCKER_HOST: "tcp://192.168.1.147:2375"
