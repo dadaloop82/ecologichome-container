@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y curl bash && \
     libpq-dev \
     nodejs \
     gfortran \
-    git  # Aggiunta l'installazione di Git
+    git
 
 ARG PIP_EXTRA_INDEX_URL=https://www.piwheels.org/simple
 
@@ -16,7 +16,7 @@ ARG PIP_EXTRA_INDEX_URL=https://www.piwheels.org/simple
 RUN git clone https://github.com/dadaloop82/ecologichome-container.git /ecologichome_src && \
     pip3 install --upgrade pip && \
     pip3 install setuptools==62.4.0 && \
-    pip3 install -e /ecologichome_src/ecologichome/ && \
+    pip3 install /ecologichome_src/ecologichome/ && \
     pip3 install appdaemon==4.2.1 
 
 WORKDIR /ecologichome_src/frontend
