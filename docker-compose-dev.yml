@@ -1,20 +1,29 @@
+version: '3'
+
 volumes:
   ecologichome_config:
-    name: ecologichome_config
-  ignore:
-    name: ignore
+    external: true
 
 services:
   ecologichome:
     container_name: ecologichome
-    image: dadaloop82/aarch64-ecologichome-dev:dev-30
+    security_opt:
+      - no-new-privileges:true
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     restart: unless-stopped
     volumes:
-      - .\ecologichome_src\appdaemon\apps\:/ecologichome_src/appdaemon/apps/
-      - .\ecologichome_src\startup\:/ecologichome_src/startup/
-      - .\ecologichome_src\ecologichome\:/ecologichome_src/ecologichome/
-      - .\ecologichome_src\frontend\src\:/ecologichome_src/frontend/src/
+      - ./ecologichome_src/appdaemon/apps/:/ecologichome_src/appdaemon/apps/
+      - ./ecologichome_src/startup/:/ecologichome_src/startup/
+      - ./ecologichome_src/ecologichome/:/ecologichome_src/ecologichome/
+      - ./ecologichome_src/frontend/src/:/ecologichome_src/frontend/src/
       - ecologichome_config:/ecologichome_src/data/config/
     ports:
       - "2300:2300"
       - "3000:3000"
+    user: code
+    environment:
+      DOCKER_HOST: "tcp://192.168.1.147:2375"
+      DOCKER_TLS_VERIFY: "0"
+      DOCKER_CERT_PATH: ""

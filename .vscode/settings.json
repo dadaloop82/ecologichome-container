@@ -2,5 +2,11 @@
     "python.formatting.provider": "none",
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "docker.environment": {
+        "DOCKER_HOST": "ssh://docker@192.168.1.147",
+        "DOCKER_TLS_VERIFY": "1",
+        "DOCKER_CERT_PATH": "/home/code/docker_certificates",
+        "DOCKER_TLS_CERTPATH": "/home/code/docker_certificates"
     }
 }

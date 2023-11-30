@@ -1,16 +1,13 @@
 {
-    "name": "ecologichome",
-    "dockerComposeFile": "docker-compose-dev.yml",
-    "service": "ecologichome",
-    "workspaceFolder": "/ecologichome_src",
-    "shutdownAction": "stopCompose",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "ms-python.python",
-                "njpwerner.autodocstring",
-                "svelte.svelte-vscode"
-            ]
-        }
-    }
+  "name": "ecologichome",
+  "dockerComposeFile": "docker-compose-dev.yml",
+  "service": "ecologichome",
+  "workspaceFolder": "/ecologichome_src",
+  "shutdownAction": "stopCompose"
+  // "extensions": [
+  //   "ms-python.python",
+  //   "njpwerner.autodocstring",
+  //   "svelte.svelte-vscode"
+  // ],
+  // "docker.host": "ssh://docker@192.168.1.147"
 }

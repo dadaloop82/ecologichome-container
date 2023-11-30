@@ -14,5 +14,4 @@ services:
 
 volumes:
   ecologichome_config:
-    name: ecologichome_config
     external: true
