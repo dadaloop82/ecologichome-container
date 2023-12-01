@@ -8,25 +8,24 @@ RUN apt-get update && apt-get install -y curl bash && \
     libpq-dev \
     nodejs \
     gfortran \
-    git
+    git && \
+    apt-get install -y libpq-dev nodejs cron
 
 ARG PIP_EXTRA_INDEX_URL=https://www.piwheels.org/simple
 
-# Clona il repository GitHub e copia il suo contenuto in /ecologichome_src
-RUN git clone https://github.com/dadaloop82/ecologichome-container.git /ecologichome_src && \
-    pip3 install --upgrade pip && \
+RUN git clone https://github.com/dadaloop82/ecologichome-container.git /ecologichome_src
+WORKDIR /ecologichome_src/
+
+RUN pip3 install --upgrade pip && \
     pip3 install setuptools==62.4.0 && \
-    pip3 install /ecologichome_src/ecologichome/ && \
-    pip3 install appdaemon==4.2.1 
+    pip3 install -r ecologichome/requirements.txt && \    
+    pip3 install appdaemon==4.2.1
+
 
 WORKDIR /ecologichome_src/frontend
 RUN npm install && npm run build
 
 FROM python:3.9-slim-bullseye AS build-image
-
-RUN apt-get update && apt-get install -y curl bash && \
-    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get install -y libpq-dev nodejs cron
 
 COPY --from=compile-image /opt/venv /opt/venv
 COPY --from=compile-image /ecologichome_src /ecologichome_src
