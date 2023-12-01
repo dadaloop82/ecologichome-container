@@ -34,10 +34,6 @@ RUN npm install && npm run build
 # Second Stage: Build Image
 FROM python:3.9-slim-bullseye AS build-image
 
-# Copy virtual environment and project files from the compile-image stage
-COPY --from=compile-image /opt/venv /opt/venv
-COPY --from=compile-image /ecologichome-container/ecologichome_src/ /ecologichome-container/ecologichome_src/
-
 # Set environment variable for PATH
 ENV PATH="/opt/venv/bin:$PATH"
 
