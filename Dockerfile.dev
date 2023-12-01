@@ -1,5 +1,7 @@
+# First Stage: Compile Image
 FROM python:3.9-slim-bullseye AS compile-image
 
+# Install required dependencies
 RUN apt-get update && apt-get install -y curl bash && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y \
@@ -11,26 +13,36 @@ RUN apt-get update && apt-get install -y curl bash && \
     git && \
     apt-get install -y libpq-dev nodejs cron
 
+# Set an environment variable for PiWheels
 ARG PIP_EXTRA_INDEX_URL=https://www.piwheels.org/simple
 
-RUN git clone https://github.com/dadaloop82/ecologichome-container.git /ecologichome_src
-WORKDIR /ecologichome_src/
+# Clone the GitHub repository to /ecologichome_src
+RUN git clone https://github.com/dadaloop82/ecologichome-container.git /ecologichome-container
 
+# Upgrade pip, install setuptools, install Python dependencies from requirements.txt
 RUN pip3 install --upgrade pip && \
     pip3 install setuptools==62.4.0 && \
-    pip3 install -r /ecologichome/ && \    
+    pip3 install -r /ecologichome-container/ecologichome_src/ecologichome/requirements.txt && \    
     pip3 install appdaemon==4.2.1
 
+# Set working directory for the frontend
+WORKDIR /ecologichome-container/ecologichome_src/frontend
 
-WORKDIR /ecologichome_src/frontend
+# Install Node.js dependencies and build frontend
 RUN npm install && npm run build
 
+# Second Stage: Build Image
 FROM python:3.9-slim-bullseye AS build-image
 
+# Copy virtual environment and project files from the compile-image stage
 COPY --from=compile-image /opt/venv /opt/venv
-COPY --from=compile-image /ecologichome_src /ecologichome_src
+COPY --from=compile-image /ecologichome-container/ecologichome_src/ /ecologichome-container/ecologichome_src/
 
+# Set environment variable for PATH
 ENV PATH="/opt/venv/bin:$PATH"
+
+# Set working directory to root
 WORKDIR /
 
-ENTRYPOINT [ "bash", "/ecologichome_src/startup/run.sh" ]
+# Set the entry point for the container
+ENTRYPOINT [ "bash", "/ecologichome-container/ecologichome_src/startup/run.sh" ]
