@@ -37,8 +37,6 @@ FROM python:3.9-slim-bullseye AS build-image
 # Set environment variable for PATH
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Set working directory to root
-WORKDIR /
 
 # Set the entry point for the container
 ENTRYPOINT [ "bash", "/ecologichome-container/ecologichome_src/startup/run.sh" ]
